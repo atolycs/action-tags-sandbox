@@ -23,7 +23,6 @@ jobs:
         - name: Checkout Repository
           uses: actions/checkout@v4
           with:
-            token: ${{ steps.generate-token.outputs.token }}
             fetch-depth: 0
         
         - name: Tag new Target ${{ github.event.inputs.target }}
