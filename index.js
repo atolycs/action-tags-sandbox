@@ -30803,6 +30803,8 @@ async function run() {
     // bot commiter id setup
     const { data } = await octokit.request('GET /user');
 
+    core.debug(`User Data\n${data}`);
+
     const commit_user_id = data.id;
     const commit_user_login = data.login;
 
@@ -30815,6 +30817,8 @@ async function run() {
     });
 
     const target_sha = getRef_alias.data.object.sha;
+
+    core.debug(`Get ${version_tags} sha ==> ${target_sha}`);
 
     // setup Major version
     const major_version = version_tags.split('.')[0];
