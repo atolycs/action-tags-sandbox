@@ -16,4 +16,5 @@ jobs:
            env:
             GH_TOKEN: ${{ steps.generate-token.outputs.token }}
            run: |
+               gh api /app/installations
                gh api /app
