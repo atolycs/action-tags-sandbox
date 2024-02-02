@@ -27,7 +27,7 @@ jobs:
             fetch-depth: 0
         
         - name: Tag new Target ${{ github.event.inputs.target }}
-          uses: .
+          uses: ./
           with:
             token: ${{ steps.generate-token.outputs.token }}
             alias_version: ${{ github.event.inputs.target }}
