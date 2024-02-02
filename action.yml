@@ -1,0 +1,19 @@
+name: "major-version-tag-update"
+description: "major version tag link update"
+branding:
+  icon: check-circle
+  color: green
+
+inputs:
+  token:
+    description: Github Token
+    required: true
+    default: ${{ github.token }}
+
+  alias_version:
+    description: Link major version tag number
+    required: true
+
+runs:
+  using: node20
+  main: index.js

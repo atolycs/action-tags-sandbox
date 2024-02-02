@@ -1,0 +1,33 @@
+name: Update Major Version Tag
+run-name: Update Major Version Tag (${{ github.event.inputs.target }})
+
+on:
+  workflow_dispatch:
+    inputs:
+        target:
+            description: The tag or reference to use
+            required: true
+
+jobs:
+   tagging:
+     runs-on: ubuntu-latest
+     name: Update Tagging
+     steps:
+        - name: Generating Instant Token
+          uses: actions/create-github-app-token@v1
+          id: generate-token
+          with:
+            app-id: ${{ secrets.APP_ID }}
+            private-key: ${{ secrets.APP_PEM }}
+
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+          with:
+            token: ${{ steps.generate-token.outputs.token }}
+            fetch-depth: 0
+        
+        - name: Tag new Target ${{ github.event.inputs.target }}
+          uses: .
+          with:
+            token: ${{ steps.generate-token.outputs.token }}
+            alias_version: ${{ github.event.inputs.target }}
