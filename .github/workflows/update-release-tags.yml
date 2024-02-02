@@ -13,12 +13,19 @@ jobs:
      runs-on: ubuntu-latest
      name: Update Tagging
      steps:
+        # - name: Generating Instant Token
+        #   uses: actions/create-github-app-token@v1
+        #   id: generate-token
+        #   with:
+        #     app-id: ${{ secrets.APP_ID }}
+        #     private-key: ${{ secrets.APP_PEM }}
         - name: Generating Instant Token
-          uses: actions/create-github-app-token@v1
+          uses: atolycs/action-app-auth@master
           id: generate-token
           with:
             app-id: ${{ secrets.APP_ID }}
             private-key: ${{ secrets.APP_PEM }}
+
 
         - name: Checkout Repository
           uses: actions/checkout@v4
