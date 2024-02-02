@@ -30799,9 +30799,11 @@ async function run() {
     const version_tags = core.getInput('alias_version', { required: true });
 
     const octokit = github.getOctokit(token);
+    core.info('==> Accessing Bot User infomation');
 
     // bot commiter id setup
-    const { data } = await octokit.request('GET /user');
+    //const { data } = await octokit.request('GET /user');
+    const data = octokit.rest.users.getAuthenticated();
 
     core.debug(`User Data\n${data}`);
 
