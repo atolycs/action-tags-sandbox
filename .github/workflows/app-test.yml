@@ -22,7 +22,7 @@ jobs:
                       appId: ${{ secrets.APP_ID }},
                       privateKey: ${{ secrets.APP_PEM }}
                    });
-                   console.log(await test_app.octokit.request("/app"));
+                   await test_app.octokit.request("/app");
                  };
                  main();
                 
