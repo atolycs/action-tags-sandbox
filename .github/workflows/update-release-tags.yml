@@ -20,7 +20,7 @@ jobs:
         #     app-id: ${{ secrets.APP_ID }}
         #     private-key: ${{ secrets.APP_PEM }}
         - name: Generating Instant Token
-          uses: atolycs/action-app-auth@master
+          uses: atolycs/action-app-auth@main
           id: generate-token
           with:
             app-id: ${{ secrets.APP_ID }}
