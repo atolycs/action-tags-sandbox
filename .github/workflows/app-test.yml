@@ -18,11 +18,11 @@ jobs:
                script: |
                  const { App } = require("octokit")
                  async function main() {
-                   const app = new App({
+                   const test_app = new App({
                       appId: ${{ secrets.APP_ID }},
                       privateKey: ${{ secrets.APP_PEM }}
                    });
-                   console.log(await app.octokit.request("/app"));
+                   console.log(await test_app.octokit.request("/app"));
                  };
                  main();
                 
