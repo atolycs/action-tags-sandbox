@@ -37,3 +37,5 @@ jobs:
           with:
             token: ${{ steps.generate-token.outputs.token }}
             alias_version: ${{ github.event.inputs.target }}
+            commit-user-id: ${{ steps.generate-token.outputs.commit_name }}
+            commit-email: ${{ steps.generate-token.outputs.commit_address }}

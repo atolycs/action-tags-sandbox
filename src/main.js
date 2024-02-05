@@ -6,19 +6,10 @@ async function run() {
     const token = core.getInput('token', { required: true });
     const version_tags = core.getInput('alias_version', { required: true });
 
-    const octokit = github.getOctokit(token);
-    core.info('==> Accessing Bot User infomation');
+    const commit_user_id = core.getInput('commit-user-id', { required: true });
+    const commit_email = core.getInput('commit-email', { required: true });
 
-    // bot commiter id setup
-    //const { data } = await octokit.request('GET /user');
-    const data = octokit.rest.users.getAuthenticated();
-
-    core.debug(`User Data\n${data}`);
-
-    const commit_user_id = data.id;
-    const commit_user_login = data.login;
-
-    const commit_user = `${commit_user_id}+${commit_user_login}@users.noreply.github.com`;
+    const octokit = new github.getOctokit(token);
 
     // Get alias to version tags
     const getRef_alias = await octokit.rest.git.getRef({
@@ -43,7 +34,7 @@ async function run() {
       type: 'commit',
       tagger: {
         name: commit_user_id,
-        email: commit_user,
+        email: commit_email,
       },
     });
   } catch (error) {
