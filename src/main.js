@@ -18,9 +18,11 @@ async function run() {
     //   ref: `tags/${version_tags}`
     // });
 
+    core.debug(github.context.repo.owner);
+    core.debug(github.context.repo.repo);
     const getRef_alias = await octokit.request('GET /repos/{owner}/{repo}/git/ref/{ref}', {
       owner: github.context.repo.owner,
-      repo: github.context.repo,
+      repo: github.context.repo.repo,
       ref: `tags/${version_tags}`,
     });
 
@@ -45,7 +47,7 @@ async function run() {
       },
     });
   } catch (error) {
-    core.setFailed(`==> Failed. \n${error}`);
+    core.setFailed(`==> Failed. \n${error.message}`);
   }
 }
 
