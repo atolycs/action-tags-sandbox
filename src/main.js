@@ -13,18 +13,18 @@ async function run() {
 
     core.info(`==> Searching tag ${version_tags}`);
     // Get alias to version tags
-    // const getRef_alias = await octokit.rest.git.getRef({
-    //   ...github.context.repo,
-    //   ref: `tags/${version_tags}`
-    // });
+    const getRef_alias = await octokit.rest.git.getRef({
+      ...github.context.repo,
+      ref: `tags/${version_tags}`,
+    });
 
     core.debug(github.context.repo.owner);
     core.debug(github.context.repo.repo);
-    const getRef_alias = await octokit.request('GET /repos/{owner}/{repo}/git/ref/{ref}', {
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      ref: `tags/${version_tags}`,
-    });
+    //const getRef_alias = await octokit.request('GET /repos/{owner}/{repo}/git/ref/{ref}', {
+    //  owner: github.context.repo.owner,
+    //  repo: github.context.repo.repo,
+    //  ref: `tags/${version_tags}`,
+    //});
 
     const target_sha = getRef_alias.data.object.sha;
 
@@ -36,7 +36,6 @@ async function run() {
     // Create or Update Tagging Major version tags
 
     core.info(`==> Adding ${major_version} to ${target_sha}`);
-
     const tags_data = await octokit.rest.git.createTag({
       ...github.context.repo,
       tag: major_version,
@@ -65,3 +64,7 @@ async function run() {
 }
 
 run();
+
+//async function availableTags(octokit, tags) {
+//
+//}
