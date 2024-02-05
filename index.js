@@ -30805,14 +30805,20 @@ async function run() {
 
     core.info(`==> Searching tag ${version_tags}`);
     // Get alias to version tags
-    const getRef_alias = await octokit.rest.git.getRef({
-      ...github.context,
+    // const getRef_alias = await octokit.rest.git.getRef({
+    //   ...github.context.repo,
+    //   ref: `tags/${version_tags}`
+    // });
+
+    const getRef_alias = await octokit.request('GET /repos/{owner}/{repo}/git/ref/{ref}', {
+      owner: github.context.repo.owner,
+      repo: github.context.repo,
       ref: `tags/${version_tags}`,
     });
 
     const target_sha = getRef_alias.data.object.sha;
 
-    core.debug(`Get ${version_tags} sha ==> ${target_sha}`);
+    core.info(`Get ${version_tags} sha ==> ${target_sha}`);
 
     // setup Major version
     const major_version = version_tags.split('.')[0];
@@ -30820,7 +30826,7 @@ async function run() {
     // Create or Update Tagging Major version tags
 
     await octokit.rest.git.createTag({
-      ...github.context,
+      ...github.context.repo,
       tag: major_version,
       message: `Update Routing ${major_version} to ${version_tags}`,
       object: target_sha,
