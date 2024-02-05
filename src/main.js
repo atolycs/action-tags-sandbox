@@ -35,7 +35,9 @@ async function run() {
 
     // Create or Update Tagging Major version tags
 
-    await octokit.rest.git.createTag({
+    core.info(`==> Adding ${major_version} to ${target_sha}`);
+
+    const tags_data = await octokit.rest.git.createTag({
       ...github.context.repo,
       tag: major_version,
       message: `Update Routing ${major_version} to ${version_tags}`,
@@ -46,6 +48,17 @@ async function run() {
         email: commit_email,
       },
     });
+
+    core.info(tags_data.data);
+
+    // Create Reference
+    await octokit.rest.git.createRef({
+      ...github.context.repo,
+      ref: `refs/tags/${major_version}`,
+      sha: tags_data.data.object.sha,
+    });
+
+    core.info(`Tag Create or Updated ${major_version} => ${version_tags}}`);
   } catch (error) {
     core.setFailed(`==> Failed. \n${error.message}`);
   }
