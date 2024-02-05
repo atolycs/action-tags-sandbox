@@ -55,7 +55,7 @@ async function run() {
     await octokit.rest.git.createRef({
       ...github.context.repo,
       ref: `refs/tags/${major_version}`,
-      sha: tags_data.data.object.sha,
+      sha: tags_data.data.sha,
     });
 
     core.info(`Tag Create or Updated ${major_version} => ${version_tags}`);
