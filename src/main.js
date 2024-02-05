@@ -11,10 +11,11 @@ async function run() {
 
     const octokit = new github.getOctokit(token);
 
+    core.info(`==> Searching tag ${version_tags}`);
     // Get alias to version tags
     const getRef_alias = await octokit.rest.git.getRef({
       ...github.context,
-      ref: `tags/${version_tags}`,
+      ref: `tag/${version_tags}`,
     });
 
     const target_sha = getRef_alias.data.object.sha;
