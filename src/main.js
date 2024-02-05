@@ -9,13 +9,13 @@ async function run() {
     const commit_user_id = core.getInput('commit-user-id', { required: true });
     const commit_email = core.getInput('commit-email', { required: true });
 
-    const octokit = new github.getOctokit(token);
+    const octokit = github.getOctokit(token);
 
     core.info(`==> Searching tag ${version_tags}`);
     // Get alias to version tags
     const getRef_alias = await octokit.rest.git.getRef({
       ...github.context,
-      ref: `tag/${version_tags}`,
+      ref: `tags/${version_tags}`,
     });
 
     const target_sha = getRef_alias.data.object.sha;
