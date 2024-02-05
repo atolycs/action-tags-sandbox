@@ -30850,7 +30850,7 @@ async function run() {
       sha: tags_data.data.object.sha,
     });
 
-    core.info(`Tag Create or Updated ${major_version} => ${version_tags}}`);
+    core.info(`Tag Create or Updated ${major_version} => ${version_tags}`);
   } catch (error) {
     core.setFailed(`==> Failed. \n${error.message}`);
   }
