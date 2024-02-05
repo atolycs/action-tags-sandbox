@@ -8,6 +8,10 @@ on:
             description: The tag or reference to use
             required: true
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  
 jobs:
    tagging:
      runs-on: ubuntu-latest
